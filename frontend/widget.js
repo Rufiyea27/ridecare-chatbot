@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:8000/chat"
+const API = "https://ridecare-chatbot.onrender.com/chat"
 
 const session_id = "web_widget_user"
 const phone = "9999999999"
@@ -199,3 +199,4 @@ input.addEventListener("keypress", function(e){
 setTimeout(()=>{
     addMessage("Hello! I can help diagnose your bike issues or book a service.", "bot")
 },1000)
+
