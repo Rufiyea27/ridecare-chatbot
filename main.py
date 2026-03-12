@@ -11,6 +11,7 @@ from fastapi import FastAPI
 from database import Base, engine
 import models
 
+
 app = FastAPI()
 
 # create tables automatically
@@ -28,6 +29,9 @@ class Message(BaseModel):
     text: str
     session_id: str
     phone: str
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/widget", StaticFiles(directory="frontend"), name="widget")
 
 @app.get("/")
 def home():
