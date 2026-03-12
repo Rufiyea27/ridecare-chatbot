@@ -7,10 +7,14 @@ import models
 from database import SessionLocal
 from models import Booking, Customer
 from datetime import datetime
-
-Base.metadata.create_all(bind=engine)
+from fastapi import FastAPI
+from database import Base, engine
+import models
 
 app = FastAPI()
+
+# create tables automatically
+Base.metadata.create_all(bind=engine)
 
 app.add_middleware(
     CORSMiddleware,
