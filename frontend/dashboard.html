@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RideCare Workshop Dashboard</title>
+    <style>
+        body{
+            font-family: Arial;
+            background:#111;
+            color:white;
+            padding:40px;
+        }
+
+        h1{
+            margin-bottom:30px;
+        }
+
+        .card{
+            background:#222;
+            padding:20px;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th,td{
+            padding:10px;
+            border-bottom:1px solid #444;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🏍 RideCare Workshop Dashboard</h1>
+
+<div class="card">
+    <h2>Stats</h2>
+    <p>Total Bookings: <span id="bookings">0</span></p>
+    <p>Total Customers: <span id="customers">0</span></p>
+</div>
+
+<div class="card">
+    <h2>Bookings</h2>
+    <table id="bookingTable">
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Bike</th>
+        </tr>
+    </table>
+</div>
+
+<div class="card">
+    <h2>Customers</h2>
+    <table id="customerTable">
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+        </tr>
+    </table>
+</div>
+
+<script>
+
+const API = "http://127.0.0.1:8000"
+
+async function loadStats(){
+    const res = await fetch(API + "/stats")
+    const data = await res.json()
+
+    document.getElementById("bookings").innerText = data.total_bookings
+    document.getElementById("customers").innerText = data.total_customers
+}
+
+async function loadBookings(){
+    const res = await fetch(API + "/bookings")
+    const data = await res.json()
+
+    const table = document.getElementById("bookingTable")
+
+    data.forEach(b=>{
+        const row = table.insertRow()
+
+        row.insertCell(0).innerText = b.name
+        row.insertCell(1).innerText = b.phone
+        row.insertCell(2).innerText = b.bike_model
+    })
+}
+
+async function loadCustomers(){
+    const res = await fetch(API + "/customers")
+    const data = await res.json()
+
+    const table = document.getElementById("customerTable")
+
+    data.forEach(c=>{
+        const row = table.insertRow()
+
+        row.insertCell(0).innerText = c.name
+        row.insertCell(1).innerText = c.phone
+    })
+}
+
+loadStats()
+loadBookings()
+loadCustomers()
+
+</script>
+
+</body>
+</html>
