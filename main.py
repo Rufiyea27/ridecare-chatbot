@@ -33,6 +33,10 @@ from fastapi.staticfiles import StaticFiles
 
 app.mount("/widget", StaticFiles(directory="frontend"), name="widget")
 
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+
 @app.get("/")
 def home():
     return {"message": "RideCare Smart Chatbot with Memory 🚀"}
